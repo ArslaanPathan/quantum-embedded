@@ -33,17 +33,9 @@ func main() {
 	}
 	fmt.Println(*diskLayout)
 
-	size, err := partition.ParseSize(diskLayout.TotalSize)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Total size: %d bytes\n", size)
+	fmt.Printf("Total size: %d bytes\n", diskLayout.TotalSizeBytes)
 	
 	for _, p := range diskLayout.Partitions {
-		size, err = partition.ParseSize(p.Size)
-		if err != nil {
-			log.Fatal(err)
-		}
-		fmt.Printf("Partition %s, total size %d bytes\n", p.Name, size)
+		fmt.Printf("Partition %s, total size %d bytes\n", p.Name, p.SizeBytes)
 	}
 }

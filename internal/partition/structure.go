@@ -26,11 +26,17 @@ type Partition struct {
 	Type string `toml:"type"`
 	ReadOnly bool `toml:"read_only"`
 	DMVerity bool `toml:"dm_verity"`
+	Source string `toml:"source"`
+
+	SizeBytes uint64 `toml:"-"`
+	StartBytes uint64 `toml:"-"`
 }
 
 type DiskLayout struct {
 	OutputPath string `toml:"output_path"`
 	TotalSize string `toml:"size"`
+	TotalSizeBytes uint64 `toml:"-"`
+	PartitionTable string `toml:"partition_table"`
 	Partitions []Partition `toml:"partitions"`
 }
 
