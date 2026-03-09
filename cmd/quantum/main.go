@@ -31,11 +31,21 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(*diskLayout)
 
-	fmt.Printf("Total size: %d bytes\n", diskLayout.TotalSizeBytes)
+	fmt.Printf("Total diskimage size: %s (%d bytes)\n", diskLayout.TotalSize, diskLayout.TotalSizeBytes)
 	
 	for _, p := range diskLayout.Partitions {
-		fmt.Printf("Partition %s, total size %d bytes\n", p.Name, p.SizeBytes)
+		fmt.Printf("\nPartition %s:\n", p.Name)
+		var size string;
+		if p.Size == "0" {
+			size = "Rest of disk"
+		} else {
+			size = p.Size
+		}
+		fmt.Printf("Total size: %s (%d bytes)\n", size, p.SizeBytes)
+		fmt.Printf("Type: %s\n", p.Type)
+		fmt.Printf("Read only: %t\n", p.ReadOnly)
+		fmt.Printf("dm-verity: %t\n", p.DMVerity)
+		fmt.Printf("Source: %s\n", p.Source)
 	}
 }
